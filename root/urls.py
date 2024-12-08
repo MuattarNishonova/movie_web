@@ -4,13 +4,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/' , include('users.urls')),
-    path('' , include('product.urls'))
+    path('accounts/', include('users.urls')),
+    
+    path('', include('movies.urls'))
 ]
 
 if settings.DEBUG == True:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
