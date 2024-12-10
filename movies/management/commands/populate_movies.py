@@ -7,11 +7,20 @@ fake = Faker()
 
 
 file_names = [
-    'movie_images/1.jpg', 'movie_images/2.jpg'
+    'movie_images/bridge_to_terabithia.jpg', 'movie_images/do_not_knock_twice.jpg',
+    'movie_images/frozen.jpeg','movie_images/home_alone.jpeg',
+    'movie_images/inside_out2.jpeg','movie_images/moana2.jpg',
+    'movie_images/the_day_after_tomorrow.jpg','movie_images/zootopia.jpeg'
 ]
-
-vieo_files = [
-    'movies/mufasa.mp4', 'movies/red_one.mp4'
+movie_title = [
+    'Bridge To Terabithia', 'Do Not Knock Twice','Frozen',
+    'Home Alone', 'Inside Out 2','Moana 2', 'The Day After Tomorrow','Zootopia'
+]
+video_files = [
+    'movies/bridge_to_terabithia.mp4', 'movies/do_not_knock_twice.mp4',
+    'movies/frozen.mp4','movies/home_alone.mp4',
+    'movies/inside_out2.mp4','movies/moana2.mp4',
+    'movies/the_day_after_tomorrow.mp4','movies/zootopia.mp4'
 ]
 
 class Command(BaseCommand):
@@ -29,25 +38,23 @@ class Command(BaseCommand):
 
     def create_movies(self):
         genres = list(Genre.objects.all())
-        for _ in range(25):  # Adjust the number of movies as needed
+        for i in range(8):  # Adjust the number of movies as needed
             movie = Movie.objects.create(
-                title=fake.sentence(nb_words=random.randrange(3, 7)),
+                title=movie_title[i],
                 description=fake.paragraph(nb_sentences=random.randrange(5, 10)),
                 duration=random.randint(80, 180),
                 movie_type=fake.word(ext_word_list=["Action", "Romance", "Thriller", "Animation"]),
                 studios=fake.company(),
                 release_date=fake.date_between(start_date="-10y", end_date="today"),
-                rating=round(random.uniform(1, 10), 1),
-                views=random.randint(1000, 100000),
-                is_active=random.choice([True, False]),
+                rating=round(random.uniform(5, 10), 1),
+                views=random.randint(100, 10000),
                 quality=random.choice([choice[0] for choice in QualityChoices.choices]),
-                scores=round(random.uniform(0, 10), 1),
+                scores=round(random.uniform(4, 10), 1),
                 status=random.choice([choice[0] for choice in MovieStatusChoices.choices]),
                 type=random.choice([choice[0] for choice in MovieTypeChoices.choices]),
-                slug=None,  # Automatically generated in `save` method
-                image=random.choice(file_names),
-                video=random.choice(vieo_files),
-                thumb=fake.file_name(category="image"),
+                image=file_names[i],
+                video=video_files[i],
+                thumb=video_files[i]
             )
             movie.save()
 
