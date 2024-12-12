@@ -51,7 +51,7 @@ def movie_detail(request, slug):
             UserReview.objects.create(
                 user=user, movie=movie, comment=comment
             )
-    reviews = UserReview.objects.order_by('-id')
+    reviews = UserReview.objects.filter(movie=movie).order_by('-id')
     you_might_like = Movie.objects.filter(type=movies.type)[:4]
     
    
@@ -84,7 +84,7 @@ def watch(request, slug):
                 user=user, movie=movie, comment=comment
             )
 
-    reviews = UserReview.objects.order_by('-id')
+    reviews = UserReview.objects.filter(movie=movie).order_by('-id')
     context = {
         'movie': movie,
         'reviews': reviews
