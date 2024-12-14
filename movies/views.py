@@ -4,6 +4,7 @@ from .models import Movie, MovieGenre, \
 from django.contrib.auth import get_user_model
 from users.models import UserReview
 from django.core.cache import cache
+from django.db.models import Max
 
 from django.db.models import Q
 
@@ -14,6 +15,10 @@ def home(request):
     top_views = Movie.objects.all().order_by('-views')[:5]
 
     q = request.GET.get('q')
+    latest_commented_movies = Movie.objects.annotate(
+        last_comment=Max('userreview__posted')  
+    ).filter(userreview__isnull=False).order_by('-last_comment')[:4]
+
 
     if q:
         regular = regular.filter(title__icontains=q)
@@ -21,7 +26,8 @@ def home(request):
     context = {
         'banners': banners,
         'regular': regular,
-        'top_views': top_views
+        'top_views': top_views,
+         'latest_commented_movies': latest_commented_movies
         # 'movie_detail_slug': movie_detail_slug
     }
     print(f"{banners=}")
