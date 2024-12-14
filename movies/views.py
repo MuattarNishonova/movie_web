@@ -27,7 +27,7 @@ def home(request):
         'banners': banners,
         'regular': regular,
         'top_views': top_views,
-         'latest_commented_movies': latest_commented_movies
+        'latest_commented_movies': latest_commented_movies
         # 'movie_detail_slug': movie_detail_slug
     }
     print(f"{banners=}")
