@@ -464,18 +464,18 @@
                                 <h5>New Comment</h5>
                             </div>
 
-                            {%  for review in reviews %}
+                            {%  for movie in top_views %}
                             <div class="product__sidebar__comment__item">
                                 <div class="product__sidebar__comment__item__pic">
-                                    <img src="{{ review.movie.image.url }}" alt="">
+                                    <img src="{{ movie.image.url }}" alt="">
                                 </div>
                                 <div class="product__sidebar__comment__item__text">
                                     <ul>
                                         <li>Active</li>
                                         <li>Movie</li>
                                     </ul>
-                                    <h5><a href="#">{{review.title}}</a></h5>
-                                    <span><i class="fa fa-eye"></i>{{review.views}}</span>
+                                    <h5><a href="{% url 'movie_detail' movie.slug %}">{{movie.title}}</a></h5>
+                                    <span><i class="fa fa-eye"></i>{{movie.views}}</span>
                                 </div>
                             </div>
                             {% endfor %}
